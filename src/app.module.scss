@@ -1,0 +1,14 @@
+.videoWrapper {
+    position: relative;
+    width: fit-content;
+}
+
+.mainWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: auto;
+    row-gap: 20px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}

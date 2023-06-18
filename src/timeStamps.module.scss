@@ -1,0 +1,21 @@
+.timeStampsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    width: Min(100%, 1280px);
+    column-gap: 10px;
+    justify-content: space-between;
+    // flex-direction: column;
+
+}
+
+.timeStamp {
+    cursor: pointer;
+    padding: 2px 4px;
+    background-color: transparent;
+    border-radius: 4px;
+    transition: .2s;
+    &:hover {
+        background-color: #00800062;
+    }
+}

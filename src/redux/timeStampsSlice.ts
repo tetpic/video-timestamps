@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-type TimeStamp = {
+export type TimeStamp = {
     id: number,
     timestamp: number,
     duration: number,
@@ -15,13 +15,15 @@ type TimeStamp = {
 
 export interface TimeStampState {
     timeStamps: TimeStamp[],
-    isLoading: boolean,
+    currentVideoTime: number
+    isLoaded: boolean,
     errors: string[]
 }
 
 const initialState: TimeStampState = {
   timeStamps: [],
-  isLoading: false,
+  currentVideoTime: 0,
+  isLoaded: false,
   errors: []
 }
 
@@ -30,20 +32,25 @@ export const timeStampSlice = createSlice({
   initialState,
   reducers: {
     getTimestamps: (state) => {
-        state.isLoading = true
+        state.isLoaded = false
 
     },
-    failureTimestamps: (state, action: PayloadAction<number>) => {
-      state.isLoading = false
+    failureTimestamps: (state, action: PayloadAction<string>) => {
+      state.isLoaded = false
+      state.errors = ['ошибка', action.payload]
     },
-    successTimestamps: (state, action)=> {
-        state.timeStamps = action.payload
-        state.isLoading = false
+    successTimestamps: (state, action: PayloadAction<TimeStamp[]>)=> {   
+      let sorted = action.payload.sort((a, b)=> a.timestamp - b.timestamp)     
+      state.timeStamps = sorted
+      state.isLoaded = true
+    },
+    setCurrentTime: (state, action) => {
+      state.currentVideoTime = action.payload
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { getTimestamps, failureTimestamps, successTimestamps } = timeStampSlice.actions
+export const { getTimestamps, failureTimestamps, successTimestamps, setCurrentTime } = timeStampSlice.actions
 
 export default timeStampSlice.reducer
