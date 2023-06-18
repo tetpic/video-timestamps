@@ -1,14 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { findTimeStamps } from './helpers/findTimeStamps';
-import { RootState } from './redux/store';
+import { findTimeStamps } from './../../helpers/findTimeStamps';
+import { RootState } from './../../redux/store';
 import s from "./greenBlocks.module.scss"
 
-interface IGreenBlocksProp {
-    text: string
-}
 
-function GreenBlocks(props: IGreenBlocksProp) {
+
+function GreenBlocks() {
     const state = useSelector((state: RootState)=> state.timestamps)
 
     

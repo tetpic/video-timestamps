@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { RootState } from './redux/store';
+import { RootState } from './../../redux/store';
 import s from "./timeStamps.module.scss"
 
 interface ITimeStampsProps {
@@ -14,11 +14,11 @@ function TimeStamps(props: ITimeStampsProps) {
         props.playFunc(time/1000)
     }
 
-    return (<div className={s.timeStampsWrapper}>
+    return (<div data-testid="timestampsWrapper" className={s.timeStampsWrapper}>
         
         {
             timeStamps.map(el=> {
-                return <div key={el.id} className={s.timeStamp} onClick={()=> timeStampHandler(el.timestamp)}>
+                return <div data-testid={"timestampsBlock"} key={el.id} className={s.timeStamp} onClick={()=> timeStampHandler(el.timestamp)}>
                 {String(~~(~~(el.timestamp / 1000)/60)).padStart(2, "0")}: 
                 {String(~~(el.timestamp / 1000)%60).padStart(2, "0")}: 
                 {String((el.timestamp%1000)).padStart(3, '0')}

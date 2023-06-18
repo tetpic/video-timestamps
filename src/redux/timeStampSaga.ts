@@ -1,13 +1,17 @@
 import {call, put, takeEvery} from "redux-saga/effects"
-import { successTimestamps, TimeStamp } from "./timeStampsSlice"
+import { failureTimestamps, successTimestamps, TimeStamp } from "./timeStampsSlice"
 
 function* workGetStamps() {
-    const stamps: Response = yield call(()=> {return fetch("http://www.mocky.io/v2/5e60c5f53300005fcc97bbdd")
-    .then(res=> {        
-        return res.json()
-    })})
+    try {
+        const stamps: Response = yield call(()=> {return fetch("http://www.mocky.io/v2/5e60c5f53300005fcc97bbdd")
+        .then(res=> {        
+            return res.json()
+        })})
+        yield put(successTimestamps(stamps as unknown as TimeStamp[]))
+    } catch (error) {
+        yield put(failureTimestamps(String(error)))
+    }
     
-    yield put(successTimestamps(stamps as unknown as TimeStamp[]))
 }
 
 function* timeStampsSaga() {
